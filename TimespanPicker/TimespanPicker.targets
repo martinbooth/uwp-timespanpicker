@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <TimespanPicker-Platform Condition="'$(Platform)' == 'Win32'">x86</TimespanPicker-Platform>
+        <TimespanPicker-Platform Condition="'$(Platform)' != 'Win32'">$(Platform)</TimespanPicker-Platform>
+    </PropertyGroup>
+    <ItemGroup Condition="'$(TargetPlatformIdentifier)' == 'UAP'">
+        <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\TimespanPicker.winmd">
+            <Implementation>TimespanPicker.winmd</Implementation>
+        </Reference>
+    </ItemGroup>
+</Project>

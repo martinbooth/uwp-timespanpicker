@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>TimespanPicker</id>
+    <version>1.0.1</version>
+    <title>$title$</title>
+    <authors>TimespanPicker</authors>
+    <owners>Martin Booth</owners>
+    <licenseUrl>https://raw.githubusercontent.com/martinbooth/uwp-timespanpicker/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/martinbooth/uwp-timespanpicker</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A basic timespan picker for UWP</description>
+    <releaseNotes>Initial version</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>uwp timespan picker</tags>
+  </metadata>
+  <files>
+    <file src="bin\Release\TimespanPicker.winmd" target="lib\uap10.0"/>
+    <file src="bin\Release\TimespanPicker.pri" target="lib\uap10.0"/>
+    <file src="bin\Release\TimespanPicker.pdb" target="lib\uap10.0"/>
+    <file src="bin\Release\TimespanPicker.xr.xml" target="lib\uap10.0\TimespanPicker"/>
+    <file src="bin\Release\Themes\Generic.xbf" target="lib\uap10.0\TimespanPicker\Themes"/>
+    <file src="Themes\Generic.xaml" target="lib\uap10.0\Themes"/>
+    <file src="TimespanPicker.targets" target="build\uap10.0"/>
+  </files>
+</package>
