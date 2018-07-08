@@ -421,36 +421,38 @@
                                 IsEnabled="{TemplateBinding IsEnabled}"
                                 HorizontalAlignment="Stretch"
                                 HorizontalContentAlignment="Stretch">
-                                <Grid x:Name="FlyoutButtonContentGrid">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" x:Name="FirstTextBlockColumn" />
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" x:Name="SecondTextBlockColumn" />
-                                    </Grid.ColumnDefinitions>
-                                    <Border x:Name="FirstPickerHost" Grid.Column="0">
-                                        <TextBlock x:Name="HourTextBlock"
-                                            TextAlignment="Center"
-                                            Padding="0,3,0,5"
-                                            FontFamily="{TemplateBinding FontFamily}"
-                                            FontWeight="{TemplateBinding FontWeight}"
-                                            FontSize="{TemplateBinding FontSize}"
-                                            AutomationProperties.AccessibilityView="Raw" />
-                                    </Border>
-                                    <Rectangle x:Name="FirstColumnDivider"
-                                        Fill="{ThemeResource TimePickerSpacerFill}"
-                                        HorizontalAlignment="Center"
-                                        Width="2"
-                                        Grid.Column="1" />
-                                    <Border x:Name="SecondPickerHost" Grid.Column="2">
-                                        <TextBlock x:Name="MinuteTextBlock"
-                                            TextAlignment="Center"
-                                            Padding="0,3,0,5"
-                                            FontFamily="{TemplateBinding FontFamily}"
-                                            FontWeight="{TemplateBinding FontWeight}"
-                                            FontSize="{TemplateBinding FontSize}"
-                                            AutomationProperties.AccessibilityView="Raw" />
-                                    </Border>
-                                </Grid>
+                                <StackPanel x:Name="FlyoutButtonContentHost" Orientation="Horizontal">
+                                    <TextBlock x:Name="HourTextBlock"
+                                        TextAlignment="Center"
+                                        Padding="10,3,0,5"
+                                        FontFamily="{TemplateBinding FontFamily}"
+                                        FontWeight="{TemplateBinding FontWeight}"
+                                        FontSize="{TemplateBinding FontSize}"
+                                        AutomationProperties.AccessibilityView="Raw" />
+                                    <TextBlock x:Name="HourLabelTextBlock"
+                                        Text="hrs"
+                                        TextAlignment="Center"
+                                        Padding="0,3,0,5"
+                                        FontFamily="{TemplateBinding FontFamily}"
+                                        FontWeight="{TemplateBinding FontWeight}"
+                                        FontSize="{TemplateBinding FontSize}"
+                                        AutomationProperties.AccessibilityView="Raw" />
+                                    <TextBlock x:Name="MinuteTextBlock"
+                                        TextAlignment="Center"
+                                        Padding="0,3,0,5"
+                                        FontFamily="{TemplateBinding FontFamily}"
+                                        FontWeight="{TemplateBinding FontWeight}"
+                                        FontSize="{TemplateBinding FontSize}"
+                                        AutomationProperties.AccessibilityView="Raw" />
+                                    <TextBlock x:Name="MinuteLabelTextBlock"
+                                        Text="mins"
+                                        TextAlignment="Center"
+                                        Padding="0,3,0,5"
+                                        FontFamily="{TemplateBinding FontFamily}"
+                                        FontWeight="{TemplateBinding FontWeight}"
+                                        FontSize="{TemplateBinding FontSize}"
+                                        AutomationProperties.AccessibilityView="Raw" />
+                                </StackPanel>
                             </Button>
                             <Button x:Name="DeleteButton"
                                 Style="{StaticResource DeleteButtonStyle}"

@@ -147,7 +147,7 @@ namespace TimespanPicker
 
         private void FlyoutButtonClick(object sender, RoutedEventArgs e)
         {
-            this.timespanPickerFlyout.ShowAt(this);
+            this.timespanPickerFlyout.ShowAt(this.flyoutButton);
         }
     }
 }

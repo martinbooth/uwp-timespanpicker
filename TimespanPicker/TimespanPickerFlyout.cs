@@ -64,5 +64,12 @@ namespace TimespanPicker
 
             return this.timespanPickerFlyoutPresenter;
         }
+
+        internal override void ShowAt(FrameworkElement placementTarget)
+        {
+            this.timespanPickerFlyoutPresenter.Width = placementTarget.ActualWidth;
+
+            base.ShowAt(placementTarget);
+        }
     }
 }
