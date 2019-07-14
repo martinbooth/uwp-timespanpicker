@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -7,16 +9,16 @@ using Windows.UI.Xaml.Input;
 
 namespace TimespanPicker
 {
-    public sealed class TimespanPicker : Control
+    public sealed class TimespanPicker : Control, INotifyPropertyChanged
     {
         private FrameworkElement layoutRoot;
         private ButtonBase flyoutButton;
-        private TextBlock minuteTextBlock;
         private TimespanPickerFlyout timespanPickerFlyout;
-        private TextBlock hourTextBlock;
+        private TextBlock timespanTextBlock;
         private ButtonBase deleteButton;
 
         public event EventHandler<TimespanPickerValueChangedEventArgs> TimespanChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public static DependencyProperty FooterTemplateProperty { get; } = DependencyProperty.Register(
             "FooterTemplate",
@@ -68,19 +70,20 @@ namespace TimespanPicker
             {
                 SetValue(TimespanProperty, value);
                 this.SetTimespan(value);
+                this.OnPropertyChanged(nameof(TimeSpan));
             }
+        }
+
+        private void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
         private void SetTimespan(TimeSpan? timeSpan)
         {
-            if (this.hourTextBlock != null)
+            if (this.timespanTextBlock != null)
             {
-                this.hourTextBlock.Text = timeSpan == null ? string.Empty : timeSpan.Value.TotalHours.ToString("F0");
-            }
-
-            if (this.minuteTextBlock != null)
-            {
-                this.minuteTextBlock.Text = timeSpan == null ? string.Empty : timeSpan.Value.Minutes.ToString("F0");
+                this.timespanTextBlock.Text = timeSpan == null ? string.Empty : this.FormatValue(timeSpan.Value);
             }
         }
 
@@ -98,7 +101,6 @@ namespace TimespanPicker
         {
             this.DefaultStyleKey = typeof(TimespanPicker);
             this.timespanPickerFlyout = new TimespanPickerFlyout();
-
             BindingOperations.SetBinding(
                 this.timespanPickerFlyout,
                 TimespanPickerFlyout.TimeSpanProperty,
@@ -121,18 +123,17 @@ namespace TimespanPicker
 
             if (this.flyoutButton != null)
             {
-                this.flyoutButton.Click += this.FlyoutButtonClick;
+                this.flyoutButton.Click -= this.FlyoutButtonClick;
             }
 
             if (this.deleteButton != null)
             {
-                this.deleteButton.Click += this.DeleteButtonClick;
+                this.deleteButton.Click -= this.DeleteButtonClick;
             }
 
             this.layoutRoot = GetTemplateChild("LayoutRoot") as FrameworkElement;
             this.flyoutButton = GetTemplateChild("FlyoutButton") as ButtonBase;
-            this.minuteTextBlock = GetTemplateChild("MinuteTextBlock") as TextBlock;
-            this.hourTextBlock = GetTemplateChild("HourTextBlock") as TextBlock;
+            this.timespanTextBlock = GetTemplateChild("TimespanTextBlock") as TextBlock;
             this.deleteButton = GetTemplateChild("DeleteButton") as ButtonBase;
             this.SetTimespan(this.TimeSpan);
 
@@ -148,6 +149,20 @@ namespace TimespanPicker
         private void FlyoutButtonClick(object sender, RoutedEventArgs e)
         {
             this.timespanPickerFlyout.ShowAt(this.flyoutButton);
+        }
+
+        private string FormatValue(TimeSpan value)
+        {
+            var parts = new[] {
+                new { Value = value.Days, Text = "days" },
+                new { Value = value.Hours, Text= "hrs" },
+                new { Value = value.Minutes, Text = "mins" },
+                new { Value = value.Seconds, Text = "secs" }
+            };
+
+            return string.Join(" ", from p in parts
+                                    where p.Value != 0
+                                    select string.Format("{0} {1}", p.Value, p.Text));
         }
     }
 }
